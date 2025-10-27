@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Hero from "./components/hero";
 import Login from "./components/login";
 import Daftar from "./components/daftar";
+import Materi from './components/materi';
 import News from './components/news';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
@@ -14,6 +15,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="login" element={<Login/>} />
         <Route path="daftar" element={<Daftar/>} />
         <Route path="news" element={<News/>} />
+        <Route path="materi" element={<Materi/>} />
 
       </Routes>
     </BrowserRouter>
