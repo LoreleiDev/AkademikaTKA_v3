@@ -24,7 +24,7 @@ export default function Hero() {
   return (
     <>
     <Navbar />
-    <div className="w-full bg-[#0295CF] mt-[70px]">
+    <div className="w-full bg-gradient-to-t from-[#014B69] to-[#0295CF] mt-[70px]">
       {/* ===== Bagian 1: Banner ===== */}
       <div className="w-full h-60 md:h-72 bg-[#0295CF] flex items-center justify-center shadow">
         <img

@@ -120,6 +120,32 @@
     --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* index.css atau globals.css */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 10px; /* tinggi scrollbar horizontal */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #0369a1; /* warna track (jalur) */
+  border-radius: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #38bdf8; /* warna thumb (batangnya) */
+  border-radius: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #0ea5e9;
+}
+
+/* Firefox */
+.scrollbar-thin {
+  scrollbar-width: bold;
+  scrollbar-color: #38bdf8 #0369a1;
+}
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
