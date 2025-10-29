@@ -1,21 +1,62 @@
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+// src/pages/Daftar.jsx
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
+import api from "@/lib/api";
 
 export default function Daftar() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Daftar:", { username, password, confirmPassword })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+
+    if (password !== confirmPassword) {
+      setError("Password dan konfirmasi tidak cocok");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await api.post("/auth/register", {
+        username,
+        email, // ✅ kirim email ke backend
+        password,
+        password_confirmation: confirmPassword,
+      });
+
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      navigate("/dashboard");
+    } catch (err) {
+      console.error("Register error:", err);
+
+      if (err.response?.status === 422) {
+        const errors = err.response.data.errors;
+        let errorMsg = "";
+        if (errors.username) errorMsg += errors.username[0] + " ";
+        if (errors.email) errorMsg += errors.email[0] + " ";
+        if (errors.password) errorMsg += errors.password[0] + " ";
+        setError(errorMsg.trim() || "Pendaftaran gagal");
+      } else {
+        setError(err.response?.data?.message || "Terjadi kesalahan. Coba lagi.");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
-      <div className="w-full max-w-2xl text-white"> {/* ⬅️ Lebar sama kayak login */}
+      <div className="w-full max-w-2xl text-white">
         {/* Heading */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-2">
@@ -25,6 +66,13 @@ export default function Daftar() {
             Yuk daftar untuk dapat mengakses semua konten dari AkademikaTKA
           </p>
         </div>
+
+        {/* Error message */}
+        {error && (
+          <div className="mb-6 p-3 bg-red-500/30 text-center rounded text-sm">
+            {error}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-8">
@@ -37,6 +85,22 @@ export default function Daftar() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
+              disabled={loading}
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block font-semibold mb-2">Email Address</label>
+            <Input
+              type="email"
+              placeholder="Masukkan Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
+              disabled={loading}
+              required
             />
           </div>
 
@@ -49,6 +113,8 @@ export default function Daftar() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
+              disabled={loading}
+              required
             />
           </div>
 
@@ -61,15 +127,18 @@ export default function Daftar() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
+              disabled={loading}
+              required
             />
           </div>
 
           {/* Tombol Daftar */}
           <Button
             type="submit"
-            className="w-full bg-[#03A9F4] hover:bg-[#0288D1] text-white font-semibold py-3 rounded-md text-lg"
+            disabled={loading}
+            className="w-full bg-[#03A9F4] hover:bg-[#0288D1] text-white font-semibold py-3 rounded-md text-lg disabled:opacity-70"
           >
-            Daftar
+            {loading ? "Sedang mendaftar..." : "Daftar"}
           </Button>
         </form>
 
@@ -85,5 +154,5 @@ export default function Daftar() {
         </p>
       </div>
     </div>
-  )
+  );
 }

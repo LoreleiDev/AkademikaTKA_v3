@@ -1,21 +1,41 @@
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+// src/pages/Login.jsx (atau lokasi file-mu)
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link, useNavigate } from "react-router-dom";
+import api from "@/lib/api"; // 👈 import API
 
 export default function Login() {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Login:", { username, password })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const response = await api.post("/auth/login", {
+        username,
+        password,
+      });
+
+      // Simpan token & user
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      // Redirect ke dashboard atau halaman utama
+      navigate("/dashboard"); // sesuaikan rute tujuan
+    } catch (err) {
+      console.error(err);
+      setError(err.response?.data?.message || "Login gagal. Cek username dan password.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
-      <div className="w-full max-w-2xl text-white"> {/* ⬅️ ubah ke max-w-2xl */}
-        {/* Heading */}
+      <div className="w-full max-w-2xl text-white">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-2">
             Selamat datang di AkademikaTKA
@@ -25,7 +45,12 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Form */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-500/30 rounded text-center text-sm">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
             <label className="block font-semibold mb-2">Username</label>
@@ -57,7 +82,6 @@ export default function Login() {
           </Button>
         </form>
 
-        {/* Link Daftar */}
         <p className="text-center text-base mt-6">
           Tidak punya akun?{" "}
           <Link
@@ -69,5 +93,5 @@ export default function Login() {
         </p>
       </div>
     </div>
-  )
+  );
 }
