@@ -34,7 +34,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), 
+            'password' => $request->password,
         ]);
 
         // Buat token Sanctum
@@ -57,9 +57,8 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
+            'identifier' => 'required|string', // Bisa name atau email
             'password' => 'required|string',
         ]);
 
@@ -70,17 +69,18 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // Cek kredensial
-        if (!Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
+        $identifier = $request->identifier;
+
+        // Tentukan apakah input berupa email atau username
+        $field = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+
+        if (!Auth::attempt([$field => $identifier, 'password' => $request->password])) {
             return response()->json([
-                'message' => 'Invalid credentials'
+                'message' => 'Invalid credentials - Username/email atau password salah'
             ], 401);
         }
 
-        // Ambil user yang login
         $user = Auth::user();
-
-        // Buat token baru
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([

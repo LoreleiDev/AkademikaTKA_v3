@@ -64,12 +64,12 @@ export default function News() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20">
+      <div className="min-h-screen bg-linear-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 space-y-10">
           {newsData.map((item) => (
             <Card
               key={item.id}
-              className="bg-gradient-to-br from-[#0288D1] to-[#03A9F4] text-white shadow-xl rounded-2xl overflow-hidden border-none"
+              className="bg-linear-to-br from-[#0288D1] to-[#03A9F4] text-white shadow-xl rounded-2xl overflow-hidden border-none"
             >
               <CardContent className="p-8 flex flex-col space-y-6">
                 {/* Judul dan subjudul di atas */}
