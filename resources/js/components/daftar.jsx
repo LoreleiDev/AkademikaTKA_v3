@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "@/lib/api";
 
 export default function Daftar() {
-  const [username, setUsername] = useState("");
+  const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -27,22 +27,22 @@ export default function Daftar() {
 
     try {
       const response = await api.post("/auth/register", {
-        username,
-        email, // ✅ kirim email ke backend
+        name,
+        email, 
         password,
         password_confirmation: confirmPassword,
       });
 
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err) {
       console.error("Register error:", err);
 
       if (err.response?.status === 422) {
         const errors = err.response.data.errors;
         let errorMsg = "";
-        if (errors.username) errorMsg += errors.username[0] + " ";
+        if (errors.name) errorMsg += errors.name[0] + " ";
         if (errors.email) errorMsg += errors.email[0] + " ";
         if (errors.password) errorMsg += errors.password[0] + " ";
         setError(errorMsg.trim() || "Pendaftaran gagal");
@@ -55,7 +55,7 @@ export default function Daftar() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
       <div className="w-full max-w-2xl text-white">
         {/* Heading */}
         <div className="text-center mb-12">
@@ -82,8 +82,8 @@ export default function Daftar() {
             <Input
               type="text"
               placeholder="Masukkan Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={name}
+              onChange={(e) => setname(e.target.value)}
               className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
               disabled={loading}
               required

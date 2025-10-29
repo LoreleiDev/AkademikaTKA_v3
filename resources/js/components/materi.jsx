@@ -56,7 +56,7 @@ export default function Materi() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20 font-poppins">
+      <div className="min-h-screen bg-linear-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20 font-poppins">
         <div className="max-w-7xl mx-auto px-6 space-y-12">
           {/* Bagian Wajib */}
           <section>

@@ -1,12 +1,12 @@
-// src/pages/Login.jsx (atau lokasi file-mu)
+// src/pages/Login.jsx
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import api from "@/lib/api"; // 👈 import API
+import api from "@/lib/api"; 
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState(""); 
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -17,29 +17,24 @@ export default function Login() {
 
     try {
       const response = await api.post("/auth/login", {
-        username,
+        identifier,
         password,
       });
 
-      // Simpan token & user
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-
-      // Redirect ke dashboard atau halaman utama
-      navigate("/dashboard"); // sesuaikan rute tujuan
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Login gagal. Cek username dan password.");
+      setError(err.response?.data?.message || "Login gagal. Cek username/email dan password.");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
       <div className="w-full max-w-2xl text-white">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-2">
-            Selamat datang di AkademikaTKA
-          </h1>
+          <h1 className="text-4xl font-bold mb-2">Selamat datang di AkademikaTKA</h1>
           <p className="text-base text-white/80">
             Yuk login untuk dapat mengakses semua konten dari AkademikaTKA
           </p>
@@ -53,12 +48,12 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label className="block font-semibold mb-2">Username</label>
+            <label className="block font-semibold mb-2">Username atau Email</label>
             <Input
               type="text"
-              placeholder="Masukkan Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Masukkan Username atau Email"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
               className="bg-[#004D67] border-white/30 text-white placeholder:text-white/60 focus-visible:ring-[#03A9F4] h-12"
             />
           </div>

@@ -4,7 +4,7 @@ import logo from "../assets/logo.png"             // pastikan file logo ada
 
 export default function Navbar() {
   return (
-    <nav className="z-50 w-full bg-gradient-to-r from-sky-400 to-sky-500 px-6 py-3 flex items-center justify-between fixed top-0">
+    <nav className="z-50 w-full bg-linear-to-r from-sky-400 to-sky-500 px-6 py-3 flex items-center justify-between fixed top-0">
       
       {/* ====== Kiri: Logo + Menu Links ====== */}
       <div className="flex items-center space-x-8">
