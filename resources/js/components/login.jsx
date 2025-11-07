@@ -23,7 +23,7 @@ export default function Login() {
 
       localStorage.setItem("access_token", response.data.access_token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Login gagal. Cek username/email dan password.");

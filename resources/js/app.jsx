@@ -6,6 +6,7 @@ import Login from "./components/login";
 import Daftar from "./components/daftar";
 import Materi from './components/materi';
 import News from './components/news';
+import MatematikaWajib from './components/matematikawajib';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="daftar" element={<Daftar/>} />
         <Route path="news" element={<News/>} />
         <Route path="materi" element={<Materi/>} />
+        <Route path="matematikawajib" element={<MatematikaWajib/>} />
 
       </Routes>
     </BrowserRouter>
