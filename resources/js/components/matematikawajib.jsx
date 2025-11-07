@@ -6,7 +6,7 @@ export default function MatematikaWajib() {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gradient-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20">
+      <div className="min-h-screen bg-linear-to-t from-[#014B69] to-[#03A9F4] pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Judul Utama */}
           <h1 className="text-4xl font-bold text-white mb-12 text-center">
