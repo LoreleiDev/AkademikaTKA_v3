@@ -24,9 +24,9 @@ export default function Hero() {
         { img: mapel1, link: null },
         { img: mapel2, link: "/matematikawajib" },
         { img: mapel3, link: null },
-        { img: mapel4, link: null },
+        { img: mapel4, link: "/bahasainggriswajib" },
         { img: mapel5, link: null },
-        { img: mapel6, link: null },
+        { img: mapel6, link: "/bahasaindonesiawajib" },
         { img: mapel7, link: null },
         { img: mapel8, link: null },
         { img: mapel9, link: null },
@@ -80,9 +80,16 @@ export default function Hero() {
                         Apa itu Tes Kemampuan Akademik (TKA)?
                     </h3>
                     <p className="text-sm md:text-base leading-relaxed text-gray-100">
-                        Tes Kemampuan Akademik (TKA) dilatarbelakangi oleh
-                        kebutuhan adanya pelaporan capaian akademik individu
-                        murid dari penilaian yang terstandar...
+            Tes Kemampuan Akademik (TKA) dilatarbelakangi oleh kebutuhan adanya
+            pelaporan capaian akademik individu murid dari penilaian yang
+            terstandar. Tidak tersedianya laporan capaian akademik individu dari
+            penilaian terstandar pada beberapa tahun terakhir menimbulkan beberapa
+            permasalahan. Permasalahan muncul terutama pada situasi ketika
+            perbandingan capaian akademik murid yang berasal dari satuan
+            pendidikan dilakukan, seperti pada proses seleksi. Pada situasi seleksi
+            yang didasarkan pada data dari hasil penilaian masing-masing satuan
+            pendidikan misalnya data rapor, menimbulkan masalah dalam hal
+            objektivitas dan keadilan.
                     </p>
                 </section>
             </div>

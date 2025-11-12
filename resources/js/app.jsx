@@ -7,6 +7,8 @@ import Daftar from "./components/daftar";
 import Materi from './components/materi';
 import News from './components/news';
 import MatematikaWajib from './components/matematikawajib';
+import BahasaInggrisWajib from './components/bahasainggriswajib';
+import BahasaIndonesiaWajib from './components/bahasaindonesiawajib';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -18,6 +20,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="news" element={<News/>} />
         <Route path="materi" element={<Materi/>} />
         <Route path="matematikawajib" element={<MatematikaWajib/>} />
+        <Route path="bahasainggriswajib" element={<BahasaInggrisWajib/>} />
+        <Route path="bahasaindonesiawajib" element={<BahasaIndonesiaWajib/>} />
 
       </Routes>
     </BrowserRouter>

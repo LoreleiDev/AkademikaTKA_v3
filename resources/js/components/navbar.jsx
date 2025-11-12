@@ -58,7 +58,7 @@ export default function Navbar() {
             confirmButtonColor: "#0288D1",
           });
 
-          navigate("/login");
+          navigate("/");
         } else {
           throw new Error("Logout gagal");
         }
