@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import api from "@/lib/api"; 
+import api from "@/lib/api";
 
 export default function Login() {
-  const [identifier, setIdentifier] = useState(""); 
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -25,7 +25,10 @@ export default function Login() {
       navigate("/");
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || "Login gagal. Cek username/email dan password.");
+      setError(
+        err.response?.data?.message ||
+          "Login gagal. Cek username/email dan password."
+      );
     }
   };
 
@@ -76,15 +79,25 @@ export default function Login() {
           </Button>
         </form>
 
-        <p className="text-center text-base mt-6">
-          Tidak punya akun?{" "}
+        {/* Tambahan Lupa Password + Daftar */}
+        <div className="mt-6 flex justify-between items-center text-base">
           <Link
-            to="/daftar"
-            className="text-[#B3E5FC] font-semibold hover:underline"
+            to="/lupapassword"
+            className="text-[#B3E5FC] font-semibold hover:text-white text-sm"
           >
-            Daftar
+            Lupa Password?
           </Link>
-        </p>
+
+          <p className="text-sm">
+            Tidak punya akun?{" "}
+            <Link
+              to="/daftar"
+              className="text-[#B3E5FC] font-semibold hover:underline"
+            >
+              Daftar
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
