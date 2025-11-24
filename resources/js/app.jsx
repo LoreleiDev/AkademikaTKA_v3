@@ -26,8 +26,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="bahasainggriswajib" element={<BahasaInggrisWajib/>} />
         <Route path="bahasaindonesiawajib" element={<BahasaIndonesiaWajib/>} />
         <Route path="lupapassword" element={<LupaPassword/>} />
-        <Route path="verifikasikode" element={<VerifikasiKode/>} />
-        <Route path="aturpasswordbaru" element={<AturPasswordBaru/>} />
+        <Route path="verifikasi-kode" element={<VerifikasiKode/>} />
+        <Route path="atur-password-baru" element={<AturPasswordBaru/>} />
 
       </Routes>
     </BrowserRouter>
