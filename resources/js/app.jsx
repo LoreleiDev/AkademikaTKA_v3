@@ -12,6 +12,7 @@ import BahasaIndonesiaWajib from './components/bahasaindonesiawajib';
 import LupaPassword from './components/lupapassword';
 import VerifikasiKode from './components/verifikasikode';
 import AturPasswordBaru from './components/aturpasswordbaru';
+import MatematikaLanjut from './components/matematikalanjut';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="lupapassword" element={<LupaPassword/>} />
         <Route path="verifikasi-kode" element={<VerifikasiKode/>} />
         <Route path="atur-password-baru" element={<AturPasswordBaru/>} />
+        <Route path="matematikalanjut" element={<MatematikaLanjut/>} />
 
       </Routes>
     </BrowserRouter>

@@ -23,7 +23,7 @@ export default function Hero() {
     const mapelList = [
         { img: mapel1, link: null },
         { img: mapel2, link: "/matematikawajib" },
-        { img: mapel3, link: null },
+        { img: mapel3, link: "/matematikalanjut" },
         { img: mapel4, link: "/bahasainggriswajib" },
         { img: mapel5, link: null },
         { img: mapel6, link: "/bahasaindonesiawajib" },
