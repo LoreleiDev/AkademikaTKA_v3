@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Mail\PasswordResetMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -34,25 +35,31 @@ class PasswordResetController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
 
-            // Generate kode 6 digit
             $resetCode = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
 
-            // SIMPAN KE TABEL password_reset_tokens TANPA HASH
             DB::table('password_reset_tokens')->updateOrInsert(
                 ['email' => $request->email],
                 [
-                    'token' => $resetCode, // LANGSUNG SIMPAN, GA PAKE HASH
+                    'token' => $resetCode,
                     'created_at' => Carbon::now()
                 ]
             );
 
-            // Untuk testing, langsung return kode 
+            try {
+                Mail::to($user->email)->send(new PasswordResetMail($resetCode, $user));
+                Log::info('Password reset email sent to: ' . $user->email);
+            } catch (\Exception $emailError) {
+                Log::error('Failed to send password reset email: ' . $emailError->getMessage());
+            }
+
             return response()->json([
-                'message' => 'Kode verifikasi berhasil dikirim!',
+                'message' => 'Kode verifikasi berhasil dikirim ke email Anda!',
                 'email' => $user->email,
-                'debug_code' => $resetCode // Hapus ini di production
+                'debug_code' => $resetCode 
             ], 200);
+
         } catch (\Exception $e) {
+            Log::error('Send reset code error: ' . $e->getMessage());
             return response()->json([
                 'message' => 'Gagal mengirim kode verifikasi',
                 'error' => $e->getMessage()

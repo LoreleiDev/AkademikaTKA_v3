@@ -35,7 +35,7 @@ export default function VerifikasiKode() {
   };
 
   const handleKembali = () => {
-    navigate('/lupa-password');
+    navigate(-1);
   };
 
   return (
