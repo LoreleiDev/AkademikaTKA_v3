@@ -1,4 +1,3 @@
-// src/lib/api.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -6,7 +5,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Tambahkan token ke header jika ada
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
   if (token) {

@@ -11,12 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Register user baru dan buat token.
-     */
+
     public function register(Request $request)
     {
-        // Validasi input
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:50|unique:users',
             'email' => 'required|email|unique:users',
@@ -30,14 +27,13 @@ class AuthController extends Controller
             ], 422);
         }
 
-        // Buat user baru
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'role' => 'user',
         ]);
 
-        // Buat token Sanctum
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -48,17 +44,14 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'role' => $user->role,
             ]
         ], 201);
     }
-
-    /**
-     * Login user dan buat token baru.
-     */
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'identifier' => 'required|string', // Bisa name atau email
+            'identifier' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -71,16 +64,19 @@ class AuthController extends Controller
 
         $identifier = $request->identifier;
 
-        // Tentukan apakah input berupa email atau username
-        $field = filter_var($identifier, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
 
-        if (!Auth::attempt([$field => $identifier, 'password' => $request->password])) {
+        $user = User::where('email', $identifier)
+            ->orWhere('name', $identifier)
+            ->first();
+
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials - Username/email atau password salah'
             ], 401);
         }
 
-        $user = Auth::user();
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -91,13 +87,10 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'role' => $user->role,
             ]
-        ]);
+        ], 200);
     }
-
-    /**
-     * Logout user (hapus token saat ini).
-     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
