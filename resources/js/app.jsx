@@ -14,6 +14,9 @@ import VerifikasiKode from './components/verifikasikode';
 import AturPasswordBaru from './components/aturpasswordbaru';
 import MatematikaLanjut from './components/matematikalanjut';
 
+import AdminLogin from './components/admin/AdminLogin';
+import AdminDashboard from './components/admin/Dashboard';
+
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -31,6 +34,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="atur-password-baru" element={<AturPasswordBaru/>} />
         <Route path="matematikalanjut" element={<MatematikaLanjut/>} />
 
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
