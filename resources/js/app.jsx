@@ -16,6 +16,8 @@ import MatematikaLanjut from './components/matematikalanjut';
 
 import AdminLogin from './components/admin/AdminLogin';
 import AdminDashboard from './components/admin/Dashboard';
+import NewsManagement from './components/admin/NewsManagement';
+import IklanManagement from './components/admin/IklanManagement';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -36,6 +38,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
 
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/news" element={<NewsManagement />} />
+        <Route path="/admin/ads" element={<IklanManagement />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
