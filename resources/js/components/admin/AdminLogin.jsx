@@ -31,6 +31,7 @@ export default function AdminLogin() {
 
 
             localStorage.setItem("access_token", response.data.access_token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
 
 
             navigate("/admin/dashboard");

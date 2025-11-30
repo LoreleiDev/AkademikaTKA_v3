@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import useRequireAuth from "../../hooks/useRequireAuth";
-import herobanner from "../assets/herobanner.png";
+import herobanner from "../assets/herobanner.png"; 
 
 import mapel1 from "../assets/1.png";
 import mapel2 from "../assets/2.png";
@@ -15,10 +16,13 @@ import mapel9 from "../assets/9.png";
 import mapel10 from "../assets/10.png";
 import Navbar from "./navbar";
 import Footer from "./footer";
+import api from "../lib/api"; 
 
 export default function Hero() {
     const navigate = useNavigate();
     const { checkAuth } = useRequireAuth();
+    const [iklan, setIklan] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const mapelList = [
         { img: mapel1, link: null },
@@ -33,17 +37,53 @@ export default function Hero() {
         { img: mapel10, link: null },
     ];
 
+    
+    useEffect(() => {
+        fetchIklan();
+    }, []);
+
+    const fetchIklan = async () => {
+        try {
+            setLoading(true);
+            const response = await api.get('/iklan'); 
+            setIklan(response.data.iklan || []);
+        } catch (err) {
+            console.error('Error fetching iklan:', err);
+            setIklan([]); 
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    
+    const activeIklan = iklan.length > 0 ? iklan[0] : null;
+
     return (
         <>
             <Navbar />
             <div className="w-full bg-linear-to-t from-[#014B69] to-[#0295CF] mt-[70px]">
-                {/* Banner */}
+                {/* Banner - Ambil dari Iklan */}
                 <div className="w-full h-60 md:h-72 bg-[#0295CF] flex items-center justify-center shadow">
-                    <img
-                        src={herobanner}
-                        alt="Hero Banner"
-                        className="object-cover mt-6"
-                    />
+                    {loading ? (
+                        <div className="text-white">Loading banner...</div>
+                    ) : activeIklan ? (
+                        <img
+                            src={activeIklan.image_url}
+                            alt="Hero Banner"
+                            className="w-full h-full object-cover mt-6"
+                            onError={(e) => {
+                                
+                                e.target.src = herobanner;
+                            }}
+                        />
+                    ) : (
+                        
+                        <img
+                            src={herobanner}
+                            alt="Hero Banner"
+                            className="object-cover mt-6"
+                        />
+                    )}
                 </div>
 
                 {/* Carousel Mapel */}
@@ -74,22 +114,50 @@ export default function Hero() {
                     </div>
                 </section>
 
+                {/* Iklan Lainnya (jika ada lebih dari 1) */}
+                {iklan.length > 1 && (
+                    <section className="mt-6">
+                        <h2 className="text-lg md:text-xl font-bold text-white bg-sky-700 px-4 py-2">
+                            Iklan & Promosi
+                        </h2>
+                        <div className="bg-sky-600 p-4 overflow-x-auto snap-x snap-mandatory flex space-x-6 scrollbar-thin">
+                            {iklan.slice(1).map((iklanItem, index) => (
+                                <Card
+                                    key={iklanItem.id || index}
+                                    className="min-w-[300px] h-[150px] shrink-0 bg-[#0295CF] flex items-center justify-center shadow-lg snap-center"
+                                >
+                                    <CardContent className="flex items-center justify-center p-0 w-full h-full">
+                                        <img
+                                            src={iklanItem.image_url}
+                                            alt={`Iklan ${index + 2}`}
+                                            className="w-full h-full object-cover rounded-lg"
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                            }}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
                 {/* Penjelasan TKA */}
                 <section className="mt-8 bg-sky-900 text-white p-6">
                     <h3 className="text-lg md:text-xl font-bold mb-4">
                         Apa itu Tes Kemampuan Akademik (TKA)?
                     </h3>
                     <p className="text-sm md:text-base leading-relaxed text-gray-100">
-            Tes Kemampuan Akademik (TKA) dilatarbelakangi oleh kebutuhan adanya
-            pelaporan capaian akademik individu murid dari penilaian yang
-            terstandar. Tidak tersedianya laporan capaian akademik individu dari
-            penilaian terstandar pada beberapa tahun terakhir menimbulkan beberapa
-            permasalahan. Permasalahan muncul terutama pada situasi ketika
-            perbandingan capaian akademik murid yang berasal dari satuan
-            pendidikan dilakukan, seperti pada proses seleksi. Pada situasi seleksi
-            yang didasarkan pada data dari hasil penilaian masing-masing satuan
-            pendidikan misalnya data rapor, menimbulkan masalah dalam hal
-            objektivitas dan keadilan.
+                        Tes Kemampuan Akademik (TKA) dilatarbelakangi oleh kebutuhan adanya
+                        pelaporan capaian akademik individu murid dari penilaian yang
+                        terstandar. Tidak tersedianya laporan capaian akademik individu dari
+                        penilaian terstandar pada beberapa tahun terakhir menimbulkan beberapa
+                        permasalahan. Permasalahan muncul terutama pada situasi ketika
+                        perbandingan capaian akademik murid yang berasal dari satuan
+                        pendidikan dilakukan, seperti pada proses seleksi. Pada situasi seleksi
+                        yang didasarkan pada data dari hasil penilaian masing-masing satuan
+                        pendidikan misalnya data rapor, menimbulkan masalah dalam hal
+                        objektivitas dan keadilan.
                     </p>
                 </section>
             </div>
