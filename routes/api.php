@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\IklanController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\MateriDisplayController;
 use App\Http\Controllers\Api\PasswordResetController;
 
 Route::prefix('auth')->group(function () {
@@ -21,6 +23,11 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/news', [NewsController::class, 'publicIndex']);
 Route::get('/iklan', [IklanController::class, 'publicIndex']);
+Route::get('/materi/display/mapels', [MateriDisplayController::class, 'getAllMapelsWithMateri']);
+Route::get('/materi/display/mapel/{id}', [MateriDisplayController::class, 'getMapelDetail']);
+Route::get('/materi/display/materi/{id}', [MateriDisplayController::class, 'getMateriDetail']);
+Route::get('/materi/display/mapel/{mapelId}/materi', [MateriDisplayController::class, 'getMateriByMapel']);
+Route::get('/materi/display/materi', [MateriDisplayController::class, 'getAllMateri']);
 
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard-stats', [AdminController::class, 'getDashboardStats']);
@@ -38,9 +45,19 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::post('/iklan', [IklanController::class, 'store']);
     Route::put('/iklan/{id}', [IklanController::class, 'update']);
     Route::delete('/iklan/{id}', [IklanController::class, 'destroy']);
+
+    // Materi & Mapel
+    Route::get('/materials', [MateriController::class, 'index']);
+    Route::post('/materials/mapel', [MateriController::class, 'storeMapel']);
+    Route::put('/materials/mapel/{id}', [MateriController::class, 'updateMapel']);
+    Route::post('/materials/materi', [MateriController::class, 'storeMateri']);
+    Route::put('/materials/materi/{id}', [MateriController::class, 'updateMateri']);
+    Route::delete('/materials/materi/{id}', [MateriController::class, 'destroyMateri']);
+    Route::delete('/materials/mapel/{id}', [MateriController::class, 'destroyMapel']);
+    Route::post('/materials/mapel/{id}/home-image', [MateriController::class, 'uploadHomeImage']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/getuser',[AuthController::class, 'getUser']);
+    Route::get('/getuser', [AuthController::class, 'getUser']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });
