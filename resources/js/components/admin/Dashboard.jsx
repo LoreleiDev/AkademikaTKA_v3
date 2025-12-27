@@ -74,7 +74,7 @@ export default function AdminDashboard() {
         { name: 'Dashboard', path: '/admin/dashboard', icon: '📊' },
         { name: 'Kelola Berita', path: '/admin/news', icon: '📰' },
         { name: 'Iklan', path: '/admin/ads', icon: '📢' },
-        { name: 'Materi', path: '/admin/materials', icon: '📚' },
+        { name: 'Materi', path: '/admin/materi', icon: '📚' },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -269,7 +269,7 @@ export default function AdminDashboard() {
                                 Kelola Berita
                             </Button>
                             <Button
-                                onClick={() => navigate('/admin/materials')}
+                                onClick={() => navigate('/admin/materi')}
                                 className="w-full justify-start bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200"
                             >
                                 <span className="mr-3">📚</span>
