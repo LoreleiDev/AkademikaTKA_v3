@@ -117,13 +117,13 @@ export default function Materi() {
                     }
                   >
                     <CardContent className="p-4 space-y-3">
-                      {mapel.home_image_url ? (
+                      {mapel.image_url ? (
                         <img
-                          src={mapel.home_image_url}
+                          src={mapel.image_url}
                           alt={mapel.name}
                           className="rounded-lg w-full h-40 object-cover"
                           onError={(e) => {
-                            console.error('Image failed to load:', mapel.home_image_url);
+                            console.error('Image failed to load:', mapel.image_url);
                             e.target.style.display = 'none';
                           }}
                         />
@@ -165,13 +165,13 @@ export default function Materi() {
                     }
                   >
                     <CardContent className="p-4 space-y-3">
-                      {mapel.home_image_url ? (
+                      {mapel.image_url ? (
                         <img
-                          src={mapel.home_image_url}
+                          src={mapel.image_url}
                           alt={mapel.name}
                           className="rounded-lg w-full h-40 object-cover"
                           onError={(e) => {
-                            console.error('Image failed to load:', mapel.home_image_url);
+                            console.error('Image failed to load:', mapel.image_url);
                             e.target.style.display = 'none';
                           }}
                         />

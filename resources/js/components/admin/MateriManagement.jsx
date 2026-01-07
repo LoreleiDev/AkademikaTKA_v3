@@ -623,7 +623,7 @@ export default function MateriManagement() {
                                                                 {materi.content?.map((section, i) => (
                                                                     <section key={i} className="mb-6">
                                                                         <h2 className="text-2xl font-semibold mb-2">{section.title}</h2>
-                                                                        <p>{section.content}</p>
+                                                                        <p className="whitespace-pre-line">{section.content}</p>
                                                                     </section>
                                                                 ))}
                                                             </div>

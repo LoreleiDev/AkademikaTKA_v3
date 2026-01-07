@@ -142,7 +142,7 @@ export default function MateriDetail() {
               {materi.content?.map((section, index) => (
                 <section key={index}>
                   <h2 className="text-3xl font-semibold mb-4">{String.fromCharCode(65 + index)}. {section.title}</h2>
-                  <p className="text-white/90 mb-3">
+                  <p className="text-white/90 mb-3 whitespace-pre-line">
                     {section.content}
                   </p>
                 </section>
