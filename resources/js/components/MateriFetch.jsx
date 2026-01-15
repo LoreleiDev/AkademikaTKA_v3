@@ -176,7 +176,7 @@ export default function Materi() {
                           }}
                         />
                       ) : (
-                        <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-40 flex items-center justify-center text-gray-500">
+                        <div className="bg-gray-200 border-2 border-dashed rounded-xl w-full h-40                                                                                                                                                                     flex items-center justify-center text-gray-500">
                           No Image
                         </div>
                       )}
