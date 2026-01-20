@@ -17,6 +17,7 @@ import AdminDashboard from './components/admin/Dashboard';
 import NewsManagement from './components/admin/NewsManagement';
 import IklanManagement from './components/admin/IklanManagement';
 import MateriManagement from './components/admin/MateriManagement';
+import FloatingWhatsApp from './components/floatingwhatsapp';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="/news" element={<News/>} />
         <Route path="/materi" element={<Materi/>} />
         <Route path="/materi2" element={<Materi2/>} />
+        <Route path="/floatingwhatsapp" element={<FloatingWhatsApp/>} />
         <Route path="/materi/:id" element={<MateriDetail />} />
         {/* <Route path="matematikawajib" element={<MatematikaWajib/>} />
         <Route path="bahasainggriswajib" element={<BahasaInggrisWajib/>} />
@@ -43,6 +45,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="/admin/ads" element={<IklanManagement />} />
         <Route path="/admin/materi" element={<MateriManagement />} />
       </Routes>
+      <FloatingWhatsApp />
     </BrowserRouter>
   </React.StrictMode>
 );
