@@ -133,12 +133,12 @@ export default function News() {
                     <img
                       src={item.image_url}
                       alt={item.title}
-                      className="object-cover w-full h-64 rounded-xl"
+                      className="object-cover w-full h-60 rounded-xl" //gambar berita 
                     />
                   </div>
 
                   {/* Deskripsi di kanan */}
-                  <div className="md:w-1/2 text-[15px] leading-relaxed text-white">
+                  <div className="md:w-1/2 text-[15px] leading-relaxed whitespace-pre-line text-white">
                     <HighlightedText text={item.description} />
                   </div>
                 </div>

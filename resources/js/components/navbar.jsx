@@ -7,18 +7,23 @@ import logo from "../assets/logo.png";
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+  const [avatar, setAvatar] = useState("");
 
-  
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+    const name = localStorage.getItem("user_name");
+    const avatarUrl = localStorage.getItem("user_avatar");
+
     setIsLoggedIn(!!token);
+    setUserName(name || "");
+    setAvatar(
+      avatarUrl ||
+        "https://res.cloudinary.com/dq9kxzzxi/image/upload/v1700000000/default-avatar.png"
+    );
   }, []);
 
-  
   const handleLogout = async () => {
-    const token = localStorage.getItem("access_token");
-
-    
     const result = await Swal.fire({
       title: "Yakin ingin logout?",
       text: "Kamu akan keluar dari sesi ini.",
@@ -30,66 +35,37 @@ export default function Navbar() {
       color: "#01579B",
       confirmButtonColor: "#0288D1",
       cancelButtonColor: "#81D4FA",
-      customClass: {
-        popup: "rounded-xl shadow-lg border border-sky-200",
-      },
     });
 
     if (result.isConfirmed) {
-      try {
-        const response = await fetch("/api/logout", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-          },
-        });
+      localStorage.clear();
+      setIsLoggedIn(false);
+      setUserName("");
+      setAvatar("");
 
-        if (response.ok) {
-          localStorage.removeItem("access_token");
-          setIsLoggedIn(false);
+      await Swal.fire({
+        title: "Berhasil logout!",
+        text: "Sampai jumpa lagi 👋",
+        icon: "success",
+        background: "#E1F5FE",
+        color: "#01579B",
+        confirmButtonColor: "#0288D1",
+      });
 
-          await Swal.fire({
-            title: "Berhasil logout!",
-            text: "Sampai jumpa lagi 👋",
-            icon: "success",
-            background: "#E1F5FE",
-            color: "#01579B",
-            confirmButtonColor: "#0288D1",
-          });
-
-          navigate("/");
-        } else {
-          throw new Error("Logout gagal");
-        }
-      } catch (error) {
-        Swal.fire({
-          title: "Terjadi kesalahan!",
-          text: error.message,
-          icon: "error",
-          background: "#E1F5FE",
-          color: "#01579B",
-          confirmButtonColor: "#0288D1",
-        });
-      }
+      navigate("/");
     }
   };
 
   return (
     <nav className="z-50 w-full bg-linear-to-r from-sky-400 to-sky-500 px-6 py-3 flex items-center justify-between fixed top-0">
-      {/* ====== Kiri: Logo + Menu Links ====== */}
+      {/* ===== KIRI ===== */}
       <div className="flex items-center space-x-8">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <img
-            src={logo}
-            alt="Akademika TKA"
-            className="h-[50px] w-[120px] object-contain"
-          />
-          <span className="sr-only">Akademika TKA</span>
-        </div>
+        <img
+          src={logo}
+          alt="Akademika TKA"
+          className="h-[50px] w-[120px] object-contain"
+        />
 
-        {/* Menu Links */}
         <div className="flex space-x-8 font-semibold text-white">
           <Link to="/" className="hover:opacity-50">Home</Link>
           <Link to="/news" className="hover:opacity-50">News</Link>
@@ -97,15 +73,36 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ====== Kanan: Login / Logout Button ====== */}
+      {/* ===== KANAN ===== */}
       {isLoggedIn ? (
-        <Button
-          variant="outline"
-          onClick={handleLogout}
-          className="text-white border-white bg-[#0288D1] hover:bg-[#0277BD]/80"
+        <div
+          onClick={() => navigate("/profile")}
+          className="flex items-center space-x-3 cursor-pointer group"
         >
-          Logout
-        </Button>
+          {/* Avatar */}
+          <img
+            src={avatar}
+            alt="Avatar"
+            className="w-10 h-10 rounded-full object-cover border-2 border-white shadow"
+          />
+
+          {/* Nama */}
+          <span className="text-white font-semibold hover:opacity-50">
+            {userName}
+          </span>
+
+          {/* Logout tetap terpisah */}
+          <Button
+            variant="outline"
+            onClick={(e) => {
+              e.stopPropagation(); // biar gak ikut ke profile
+              handleLogout();
+            }}
+            className="ml-4 text-white border-white bg-[#0288D1] hover:bg-[#0277BD]/80"
+          >
+            Logout
+          </Button>
+        </div>
       ) : (
         <Link to="/login">
           <Button
