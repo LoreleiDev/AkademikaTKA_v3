@@ -121,7 +121,7 @@ export default function Materi() {
                         <img
                           src={mapel.image_url}
                           alt={mapel.name}
-                          className="rounded-lg w-full h-40 object-cover" //ukuran gambar card materi
+                          className="rounded-lg w-full h-40 object-cover"
                           onError={(e) => {
                             console.error('Image failed to load:', mapel.image_url);
                             e.target.style.display = 'none';
