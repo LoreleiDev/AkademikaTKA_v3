@@ -21,7 +21,15 @@ export default function Login() {
         password,
       });
 
-      localStorage.setItem("access_token", response.data.access_token);
+      const { access_token, user } = response.data;
+
+      // ✅ SIMPAN TOKEN
+      localStorage.setItem("access_token", access_token);
+
+      // ✅ SIMPAN DATA USER
+      localStorage.setItem("user_name", user.name);
+      localStorage.setItem("user_email", user.email); // 🔥 INI PENTING
+
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -36,7 +44,9 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-[#03A9F4] to-[#015C78] px-4 font-sans">
       <div className="w-full max-w-2xl text-white">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-2">Selamat datang di AkademikaTKA</h1>
+          <h1 className="text-4xl font-bold mb-2">
+            Selamat datang di AkademikaTKA
+          </h1>
           <p className="text-base text-white/80">
             Yuk login untuk dapat mengakses semua konten dari AkademikaTKA
           </p>
@@ -50,7 +60,9 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>
-            <label className="block font-semibold mb-2">Username atau Email</label>
+            <label className="block font-semibold mb-2">
+              Username atau Email
+            </label>
             <Input
               type="text"
               placeholder="Masukkan Username atau Email"
@@ -79,8 +91,7 @@ export default function Login() {
           </Button>
         </form>
 
-        {/* Tambahan Lupa Password + Daftar */}
-        <div className="mt-6 flex justify-between items-center text-base">
+        <div className="mt-6 flex justify-between items-center">
           <Link
             to="/lupapassword"
             className="text-[#B3E5FC] font-semibold hover:text-white text-sm"

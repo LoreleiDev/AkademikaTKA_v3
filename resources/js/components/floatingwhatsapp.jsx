@@ -26,8 +26,8 @@ export default function FloatingWhatsapp() {
           `}
         >
           <p className="font-semibold">Customer Service</p>
-          <p className="font-semibold">Kak VAN : 085123456789</p>
-          <p className="font-semibold">Kak FAL : 085784073063</p>
+          <p className="font-semibold">Kak FAL : 085784073063 06:00 - 15-00 WIB</p>
+          <p className="font-semibold">Kak VAN : 081216993899 15:00 - 22:00 WIB</p>
         </div>
       </div>
 

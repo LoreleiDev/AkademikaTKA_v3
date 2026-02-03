@@ -10,7 +10,7 @@ import MateriDetail from './components/MateriDetail';
 import News from './components/news';
 import LupaPassword from './components/lupapassword';
 import VerifikasiKode from './components/verifikasikode';
-import AturPasswordBaru from './components/aturpasswordbaru';
+import AturPasswordBaru from './components/aturpasswordbaru'; 
 
 import AdminLogin from './components/admin/AdminLogin';
 import AdminDashboard from './components/admin/Dashboard';
@@ -18,6 +18,7 @@ import NewsManagement from './components/admin/NewsManagement';
 import IklanManagement from './components/admin/IklanManagement';
 import MateriManagement from './components/admin/MateriManagement';
 import FloatingWhatsApp from './components/floatingwhatsapp';
+import Profile from './components/profile';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="bahasainggriswajib" element={<BahasaInggrisWajib/>} />
         <Route path="bahasaindonesiawajib" element={<BahasaIndonesiaWajib/>} /> */}
         <Route path="/lupapassword" element={<LupaPassword/>} />
+        <Route path="/profile" element={<Profile/>} />
         <Route path="/verifikasi-kode" element={<VerifikasiKode/>} />
         <Route path="/atur-password-baru" element={<AturPasswordBaru/>} />
         {/* <Route path="matematikalanjut" element={<MatematikaLanjut/>} /> */}
