@@ -222,6 +222,8 @@ export default function IklanManagement() {
         { name: 'Kelola Berita', path: '/admin/news', icon: '📰' },
         { name: 'Kelola Iklan', path: '/admin/ads', icon: '📢' },
         { name: 'Materi', path: '/admin/materi', icon: '📚' },
+        { name: 'User Management', path: '/admin/users', icon: '👥' },
+        { name: 'Statistik Univ', path: '/admin/university-stats', icon: '🏫' },
     ];
 
     const isActive = (path) => location.pathname === path;

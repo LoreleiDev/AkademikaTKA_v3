@@ -230,7 +230,7 @@ class IklanController extends Controller
                 'iklan_id' => $id,
                 'trace' => $e->getTraceAsString()
             ]);
-
+ 
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to delete iklan: ' . $e->getMessage()

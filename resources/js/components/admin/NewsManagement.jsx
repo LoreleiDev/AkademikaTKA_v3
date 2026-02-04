@@ -250,6 +250,8 @@ export default function NewsManagement() {
         { name: 'Kelola Berita', path: '/admin/news', icon: '📰' },
         { name: 'Iklan', path: '/admin/ads', icon: '📢' },
         { name: 'Materi', path: '/admin/materi', icon: '📚' },
+        { name: 'User Management', path: '/admin/users', icon: '👥' },
+        { name: 'Statistik Univ', path: '/admin/university-stats', icon: '🏫' },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -400,9 +402,6 @@ export default function NewsManagement() {
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         Deskripsi * 
                                     </label>
-                                    <p className="text-xs text-gray-500 mt-1">
-                                        Tulisan yang ditandai : 'Perhatian! ', 'Tips: ', 'Saran: ', 'Catatan: '
-                                    </p>
                                     <Textarea
                                         placeholder="Masukkan deskripsi berita"
                                         value={formData.description}

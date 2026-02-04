@@ -303,6 +303,8 @@ export default function MateriManagement() {
         { name: 'Kelola Berita', path: '/admin/news', icon: '📰' },
         { name: 'Iklan', path: '/admin/ads', icon: '📢' },
         { name: 'Materi', path: '/admin/materi', icon: '📚' },
+        { name: 'User Management', path: '/admin/users', icon: '👥' },
+        { name: 'Statistik Univ', path: '/admin/university-stats', icon: '🏫' },
     ];
     const isActive = (path) => location.pathname === path;
 

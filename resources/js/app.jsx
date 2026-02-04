@@ -17,6 +17,8 @@ import AdminDashboard from './components/admin/Dashboard';
 import NewsManagement from './components/admin/NewsManagement';
 import IklanManagement from './components/admin/IklanManagement';
 import MateriManagement from './components/admin/MateriManagement';
+import UserManagement from './components/admin/UserManagment';
+import UniversityStatsManagement from './components/admin/UniversityStatsManagement';
 import FloatingWhatsApp from './components/floatingwhatsapp';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
@@ -44,6 +46,8 @@ ReactDOM.createRoot(document.getElementById('app')).render(
         <Route path="/admin/news" element={<NewsManagement />} />
         <Route path="/admin/ads" element={<IklanManagement />} />
         <Route path="/admin/materi" element={<MateriManagement />} />
+        <Route path="/admin/users" element={<UserManagement />} />
+        <Route path="/admin/university-stats" element={<UniversityStatsManagement />} />
       </Routes>
       <FloatingWhatsApp />
     </BrowserRouter>

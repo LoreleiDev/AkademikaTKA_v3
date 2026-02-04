@@ -6,6 +6,7 @@ import herobanner from "../assets/herobanner.png";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import api from "../lib/api"; 
+import HomeUniversityStats from "./HomeUniversityStats";
 
 export default function Hero() {
     const navigate = useNavigate();
@@ -133,11 +134,14 @@ export default function Hero() {
                     </div>
                 </section>
 
+                {/* University statistics on home */}
+                <HomeUniversityStats />
+
                 {/* Iklan Lainnya (jika ada lebih dari 1) */}
                 {iklan.length > 1 && (
                     <section className="mt-6">
                         <h2 className="text-lg md:text-xl font-bold text-white bg-sky-700 px-4 py-2">
-                            Iklan & Promosi
+                            Hal menarik lainnya dari AkademikaTKA
                         </h2>
                         <div className="bg-sky-600 p-4 overflow-x-auto snap-x snap-mandatory flex space-x-6 scrollbar-thin">
                             {iklan.slice(1).map((iklanItem, index) => (

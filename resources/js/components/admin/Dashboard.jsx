@@ -75,6 +75,8 @@ export default function AdminDashboard() {
         { name: 'Kelola Berita', path: '/admin/news', icon: '📰' },
         { name: 'Iklan', path: '/admin/ads', icon: '📢' },
         { name: 'Materi', path: '/admin/materi', icon: '📚' },
+        { name: 'User Management', path: '/admin/users', icon: '👥' },
+        { name: 'Statistik Univ', path: '/admin/university-stats', icon: '🏫' },
     ];
 
     const isActive = (path) => location.pathname === path;
@@ -183,17 +185,6 @@ export default function AdminDashboard() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="bg-white rounded-lg shadow p-6 border-l-4 border-orange-500">
-                                <div className="flex items-center">
-                                    <div className="p-3 rounded-full bg-orange-100 mr-4">
-                                        <span className="text-orange-600 text-xl">📈</span>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-lg font-semibold text-gray-600">Active Today</h3>
-                                        <p className="text-3xl font-bold text-orange-600">{stats.active_today || 0}</p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 )}
@@ -281,6 +272,13 @@ export default function AdminDashboard() {
                             >
                                 <span className="mr-3">📢</span>
                                 Kelola Iklan
+                            </Button>
+                            <Button
+                                onClick={() => navigate('/admin/university-stats')}
+                                className="w-full justify-start bg-green-50 hover:bg-green-100 text-green-700 border border-green-200"
+                            >
+                                <span className="mr-3">🏫</span>
+                                Statistik Univ
                             </Button>
                         </div>
                     </div>

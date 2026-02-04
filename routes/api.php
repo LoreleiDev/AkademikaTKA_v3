@@ -23,6 +23,9 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/news', [NewsController::class, 'publicIndex']);
 Route::get('/iklan', [IklanController::class, 'publicIndex']);
+// Public university stats
+use App\Http\Controllers\Api\AdminUniversityStatController;
+Route::get('/university-stats', [AdminUniversityStatController::class, 'publicIndex']);
 Route::get('/materi/display/mapels', [MateriDisplayController::class, 'getAllMapelsWithMateri']);
 Route::get('/materi/display/mapel/{id}', [MateriDisplayController::class, 'getMapelDetail']);
 Route::get('/materi/display/materi/{id}', [MateriDisplayController::class, 'getMateriDetail']);
@@ -55,6 +58,11 @@ Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function ()
     Route::delete('/materials/materi/{id}', [MateriController::class, 'destroyMateri']);
     Route::delete('/materials/mapel/{id}', [MateriController::class, 'destroyMapel']);
     Route::post('/materials/mapel/{id}/home-image', [MateriController::class, 'uploadHomeImage']);
+    // University stats management
+    Route::get('/university-stats', [AdminUniversityStatController::class, 'index']);
+    Route::post('/university-stats', [AdminUniversityStatController::class, 'store']);
+    Route::put('/university-stats/{id}', [AdminUniversityStatController::class, 'update']);
+    Route::delete('/university-stats/{id}', [AdminUniversityStatController::class, 'destroy']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {
